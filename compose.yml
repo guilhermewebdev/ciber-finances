@@ -1,0 +1,9 @@
+services:
+  app:
+    image: ruby:3-slim
+    working_dir: /usr/src/app
+    user: ${UID:-1000}:${GID:-1000}
+    volumes:
+      - .:/usr/src/app
+volumes:
+  bundle:
