@@ -8,5 +8,11 @@ services:
       - go_pkg:/go/pkg
     environment:
       GOCACHE: /usr/src/app/.cache/go-build
+  migrations:
+    image: guilhermewebdev/migrator:slim-v0.2
+    working_dir: /usr/src/app
+    user: ${UID:-1000}:${GID:-1000}
+    volumes:
+      - .:/usr/src/app
 volumes:
   go_pkg:
