@@ -1,9 +1,12 @@
 services:
   app:
-    image: ruby:3-slim
+    image: golang:1.23
     working_dir: /usr/src/app
     user: ${UID:-1000}:${GID:-1000}
     volumes:
       - .:/usr/src/app
+      - go_pkg:/go/pkg
+    environment:
+      GOCACHE: /usr/src/app/.cache/go-build
 volumes:
-  bundle:
+  go_pkg:
