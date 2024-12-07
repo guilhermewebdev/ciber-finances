@@ -1,3 +1,9 @@
+x-db-connect: &db-connect
+  DB_USER: db_user
+  DB_PASS: db_pass
+  DB_HOST: db
+  DB_NAME: db_name
+  DB_PORT: 5432
 services:
   app:
     image: golang:1.23
@@ -7,6 +13,7 @@ services:
       - .:/usr/src/app
       - go_pkg:/go/pkg
     environment:
+      <<: *db-connect
       GOCACHE: /usr/src/app/.cache/go-build
   migrations:
     image: guilhermewebdev/migrator:slim-v0.2
@@ -14,5 +21,17 @@ services:
     user: ${UID:-1000}:${GID:-1000}
     volumes:
       - .:/usr/src/app
+    environment:
+      <<: *db-connect
+  db:
+    image: postgres:17
+    user: www-data
+    volumes:
+      - db_data:/var/lib/postgresql/data/pgdata
+    environment:
+      POSTGRES_USER: db_user
+      POSTGRES_PASSWORD: db_pass
+      POSTGRES_DB: db_name
 volumes:
   go_pkg:
+  db_data:
