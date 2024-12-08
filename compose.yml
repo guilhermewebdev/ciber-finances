@@ -19,7 +19,7 @@ services:
       - db
       - migrations
   migrations:
-    image: guilhermewebdev/migrator:slim-v0.2
+    image: guilhermewebdev/migrator:slim-v0.3
     working_dir: /usr/src/app
     user: ${UID:-1000}:${GID:-1000}
     command: migrate latest
