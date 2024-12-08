@@ -15,14 +15,20 @@ services:
     environment:
       <<: *db-connect
       GOCACHE: /usr/src/app/.cache/go-build
+    depends_on:
+      - db
+      - migrations
   migrations:
     image: guilhermewebdev/migrator:slim-v0.2
     working_dir: /usr/src/app
     user: ${UID:-1000}:${GID:-1000}
+    command: migrate latest
     volumes:
       - .:/usr/src/app
     environment:
       <<: *db-connect
+    depends_on:
+      - db
   db:
     image: postgres:17
     user: www-data
