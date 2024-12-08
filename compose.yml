@@ -31,9 +31,8 @@ services:
       - db
   db:
     image: postgres:17
-    user: www-data
     volumes:
-      - db_data:/var/lib/postgresql/data/pgdata
+      - db_data:/var/lib/postgresql
     environment:
       POSTGRES_USER: db_user
       POSTGRES_PASSWORD: db_pass
