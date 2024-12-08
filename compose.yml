@@ -2,7 +2,7 @@ x-db-connect: &db-connect
   DB_USER: db_user
   DB_PASS: db_pass
   DB_HOST: db
-  DB_NAME: db_name
+  DB_NAME: db_name?sslmode=disable
   DB_PORT: 5432
 services:
   app:
